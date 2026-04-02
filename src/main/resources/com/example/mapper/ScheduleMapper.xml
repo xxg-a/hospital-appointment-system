@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ScheduleMapper">
+
+    <select id="list" resultType="com.example.pojo.Schedule">
+        select schedule.id,schedule.doctor_id,doctor.name,schedule.date,schedule.total_quota,schedule.remaining_quota from schedule left join doctor on schedule.doctor_id=doctor.id
+        <where>
+            <if test="name!=null">
+                doctor.name like concat('%',#{name},'%')
+            </if>
+
+        </where>
+
+    </select>
+
+
+</mapper>

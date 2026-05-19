@@ -21,6 +21,7 @@ public class AppointmentServiceimpl implements AppointmentService {
     @Override
     public Pageresult<Appointment> page(Integer start, Integer pageSize, String name) {
         PageHelper.startPage(start, pageSize);
+        int i=0;
         List<Appointment> list = appointmentMapper.list(name);
         Page<Appointment> page = (Page<Appointment>) list;
 

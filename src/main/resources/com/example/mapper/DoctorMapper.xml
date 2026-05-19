@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.DoctorMapper">
+
+    <select id="list" resultType="com.example.pojo.DoctorV0">
+        select doctor.id,doctor.name,doctor.department_id,department.name as departmentname,doctor.status from doctor left join department on doctor.department_id=department.id
+        <where>
+            <if test="name!=null">
+                doctor.name like concat('%',#{name},'%')
+            </if>
+            <if test="departmentId!=null">
+                and department_id=#{departmentId}
+            </if>
+        </where>
+
+    </select>
+
+    <update id="update" parameterType="com.example.pojo.Doctor">
+        UPDATE doctor
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="workId != null and workId != ''">
+                work_id = #{workId},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+</mapper>
